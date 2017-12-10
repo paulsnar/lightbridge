@@ -1,0 +1,16 @@
+#define DEFAULT_STRAND_LENGTH 160
+
+#define BYTES_LATCH_PRE 5
+#define BYTES_LATCH_POST 5
+#define BYTES_LATCH (BYTES_LATCH_PRE + BYTES_LATCH_POST)
+
+#define BYTES_RGB(pos) ((pos) * 3)
+
+#define BYTES_TOTAL(pos) (BYTES_LATCH + BYTES_RGB(pos))
+
+#include <time.h>
+#define SEC_TO_NSEC 1000000000
+#define DEFAULT_SLEEP_SEC 0
+#define DEFAULT_SLEEP_NSEC 15e7
+
+#define MAX_LED_VAL 0x7F
