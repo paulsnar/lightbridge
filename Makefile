@@ -1,9 +1,6 @@
-default: lightbridge-js lightbridge-lua
+default: lb2
 
-lightbridge-js: main_duktape.c common.h
-	gcc -fPIC main_duktape.c \
-		-lduktape -lbcm2835 -lm -o lightbridge-js
+lb2: main2.c
+	gcc -Wall -Wpedantic -fPIC -olb2 main2.c -lm -lbcm2835 -llua
 
-lightbridge-lua: main_lua.c common.h
-	gcc -fPIC main_lua.c \
-		-llua -lbcm2835 -lm -o lightbridge-lua
+# vim: set ts=4 sts=4 noet sw=4: #
