@@ -3,33 +3,22 @@ math.tau = math.pi * 2
 
 local LEDS = config.strand_length
 local LEDS_3 = math.floor(LEDS / 3)
-local LIGHTNESS = 1.0
+local LIGHTNESS = 0x7F
 
-local frames = { }
+local values = { }
 for i = 1, LEDS do
-  local rO, gO, bO =
-    i,
-    (i + LEDS_3) % LEDS,
-    (i - LEDS_3) % LEDS
-
-  local r, g, b =
-    math.sin(math.tau * (rO / LEDS)) * LIGHTNESS,
-    math.sin(math.tau * (gO / LEDS)) * LIGHTNESS,
-    math.sin(math.tau * (bO / LEDS)) * LIGHTNESS
-
-  if r < 0 then r = 0 end
-  if g < 0 then g = 0 end
-  if b < 0 then b = 0 end
-
-  frames[i] = { r, g, b }
+  local v = math.sin(math.tau * i / LEDS)
+  values[i] = math.floor(v * LIGHTNESS)
 end
 
 local o = 0
 while true do
   for i = 1, LEDS do
-    local o = (o + i) % LEDS
-    o = o + 1
-    set_rgb(i, frames[o][1], frames[o][2], frames[o][3])
+    local rO = (o + i) % LEDS
+    local gO = (rO + LEDS_3) % LEDS
+    local bO = (gO + LEDS_3) % LEDS
+
+    set_rgb(i, values[rO + 1], values[gO + 1], values[bO + 1])
   end
 
   flush()
